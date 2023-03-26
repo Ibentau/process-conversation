@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model events {
+  id              Int              @id @default(autoincrement())
+  sender_id       String           @db.VarChar(255)
+  type_name       String           @db.VarChar(255)
+  timestamp       Float?
+  intent_name     String?          @db.VarChar(255)
+  action_name     String?          @db.VarChar(255)
+  data            String?
+  processed_event processed_event?
+
+  @@index([sender_id], map: "ix_events_sender_id")
+}
+
+model processed_event {
+  event_id                Int     @id(map: "processed_event_pk")
+  real_intent             String
+  was_correctly_predicted Boolean @default(true)
+  events                  events  @relation(fields: [event_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "processed_event_events_id_fk")
+}
