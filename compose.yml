@@ -1,9 +1,7 @@
 version: '3.0'
 services:
-  rasa_action:
-    build:
-        context: .
-        dockerfile: Dockerfile
+  ibentau_process_conversation:
+    image: ghcr.io/ibentau/process-conversation:main
     ports:
       - 3000:3000
     environment:
