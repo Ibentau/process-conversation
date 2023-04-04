@@ -1,10 +1,11 @@
 <script lang="ts">
-	import { events } from '@prisma/client';
-	import { createEventDispatcher } from 'svelte';
+	import {events} from '@prisma/client';
+	import {createEventDispatcher} from 'svelte';
+	import type {EventData} from "./types";
 
 	export let event: events;
 
-	$: event_data = JSON.parse(event.data);
+	$: event_data = JSON.parse(event.data) as EventData;
 
 	let selected_intent = event_data?.parse_data?.intent_ranking[0].name;
 
