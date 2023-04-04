@@ -1,6 +1,6 @@
-import type { Actions, PageServerLoad } from './$types';
+import type {PageServerLoad} from './$types';
 import db from '../lib/prisma';
-import type { events } from '@prisma/client';
+import type {events} from '@prisma/client';
 
 export const load = (async ({ params }) => {
 	const userEvents: events[] = await db.events.findMany({
@@ -18,9 +18,3 @@ export const load = (async ({ params }) => {
 		userEvents
 	};
 }) satisfies PageServerLoad;
-
-export const actions = {
-	default: async (event) => {
-		// TODO log the user in
-	}
-} satisfies Actions;
